@@ -4,11 +4,12 @@
 Slack Pycon Workshop Bot
 =============================
 
-This example app shows how easy it is to implement the Slack Events API Adapter
-to receive Slack Events and respond to
-messages using Slack's Web API via python-slackclient.
+**This repo is to complement the live demonstration being given at Pycon 2018.**
 
-It also demonstrates Slack message menus and link buttons.
+This example app shows how easy it is to implement the Slack Events API Adapter to receive Slack Events and respond to messages using Slack's Web API via python-slackclient, with the added flair of message buttons to provide a neat feedback mechanism.
+
+We'll be starting off with `starting-example.py`, which is a very basic echo bot based on the Slack Evants API Adapter example app available in that library's github repo. From there, we'll incrementally add additional functionality to end up in the same state as `complete-example.py`. If you're checking this out on your own, you may want to start with `complete-example.py` to see the completed [but still pretty basic] app.
+
 
 🤖  Setup and running the app
 ------------------------------
