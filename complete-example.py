@@ -1,6 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # ==============================================================================
 # Slack / Pycon 2018 - Let's Build A Slack App Example App
-
 from flask import Flask, request, make_response, Response
 from slackclient import SlackClient
 from slackeventsapi import SlackEventAdapter
@@ -22,7 +24,7 @@ slack_events_adapter = SlackEventAdapter(SLACK_VERIFICATION_TOKEN, "/slack/event
 
 # Create a SlackClient for your bot to use for Web API requests
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
-CLIENT = SlackClient(SLACK_BOT_TOKEN)
+slack_client = SlackClient(SLACK_BOT_TOKEN)
 # ------------------------------------------------------------------------------
 
 
@@ -33,7 +35,7 @@ def send_survey(user, channel):
     # More info: https://api.slack.com/docs/message-menus
     attachments_json = [
         {
-            "fallback": "Upgrade your Slack client to use messages like these.",
+            "fallback": "Upgrade your Slack client to use message actions",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "menu_options",
@@ -44,6 +46,7 @@ def send_survey(user, channel):
                     "type": "select",
                     # Load the menu options from an external source
                     # served from the message_options endpoint below
+                    # More info: https://api.slack.com/docs/message-menus
                     "data_source": "external"
                 }
             ]
@@ -51,7 +54,7 @@ def send_survey(user, channel):
     ]
 
     # Send an in-channel reply to the user, asking for feedback
-    CLIENT.api_call(
+    slack_client.api_call(
       "chat.postMessage",
       channel=channel,
       text="Hi <@{}>! How do you feel this workshop is going?".format(user),
@@ -106,11 +109,11 @@ def message_actions():
 
     # Check the user's menu selection and set the correct message
     if selection == "great":
-        message_text = "I'm glad to hear this workshop is going great!"
-        tweet_text = "This #Pycon2018Slack app workshop is going great!"
+        message_text = "I'm glad to hear this workshop is going great! :tada:"
+        tweet_text = "This #Pycon2018Slack app workshop is going great! 🎉"
     else:
         message_text = "Oh no! Please let Roach know you're having trouble :cry:"
-        tweet_text = "I'm learning how to build bots at #Pycon2018Slack!"
+        tweet_text = "I'm learning how to build bots at #Pycon2018Slack! 💡"
 
     # Escape the Tweet text content, since it's passed as a query param
     encoded_text = urllib.quote_plus(tweet_text)
@@ -129,7 +132,7 @@ def message_actions():
     }]
 
     # Update the bot's message to reflect the user's selection
-    CLIENT.api_call(
+    slack_client.api_call(
       "chat.update",
       # The Channel in which the original message was posted
       channel=form_json["channel"]["id"],
@@ -154,8 +157,9 @@ def reaction_added(event_data):
     emoji = event["reaction"]
     # Get the channel ID from the event data
     channel = event["item"]["channel"]
-    text = ":{}:".format(emoji)
-    CLIENT.api_call("chat.postMessage", channel=channel, text=text)
+    user = event["user"]
+    text = "<@{}> reacted with :{}:".format(user, emoji)
+    slack_client.api_call("chat.postMessage", channel=channel, text=text)
 # ------------------------------------------------------------------------------
 
 
@@ -173,7 +177,7 @@ def handle_message(event_data):
         if "hi" in message.get('text'):
             channel = message["channel"]
             message = "Hello <@{}>! :tada:".format(message["user"])
-            CLIENT.api_call("chat.postMessage", channel=channel, text=message)
+            slack_client.api_call("chat.postMessage", channel=channel, text=message)
 # ------------------------------------------------------------------------------
 
 
