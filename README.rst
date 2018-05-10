@@ -135,7 +135,7 @@ Subscription setup
 
 **🤖  Subscribe your app to events**
 
-Add your **Request URL** (your ngrok URL + ``/slack/events``) and subscribe your app to `message.channels` and `app_mentions` under bot events. **Save** and toggle **Enable Events** to `on`
+Add your **Request URL** (your ngrok URL + ``/slack/events``) and subscribe your app to `reaction_added`, `message.channels` and `app_mentions` under bot events. **Save** and toggle **Enable Events** to `on`
 
 .. image:: https://user-images.githubusercontent.com/1573454/30185162-644d0cb8-93ee-11e7-96af-55fe10d9d5c8.png
 
@@ -147,9 +147,35 @@ Add your **Request URL** (your ngrok URL + ``/slack/events``) and subscribe your
 
 Invite your bot to a public channel, then say hi and your bot will respond
 
-    hi @bot 👋
+    ``hi @bot 👋``
+
+React to your bot's greeting and the bot will echo back the eomi you reacted with
+
+    ``@roach reacted with 😎``
+
+Next, mention your app's bot user directly and the bot will promt you for feedback
+
+    prompt:
+
+    ``@bot I have feedback!``
+
+    response:
+
+    ``Hi @roach! How do you feel this workshop is going?``
 
 .. image:: https://cloud.githubusercontent.com/assets/32463/23047918/964defec-f467-11e6-87c3-9c7da11fc810.gif
+
+More neat things:
+------------------
+Check out the `other events you can subscribe to`_ 😎
+
+Play with our Message Builder to see `more message formatting options`_ 😄
+
+Browse our `example apps`_ on Github for more functionality, like Dialogs 🤩
+
+.. _other events you can subscribe to: https://api.slack.com/events
+.. _more message formatting options: https://api.slack.com/docs/messages/builder
+.. _example apps: https://github.com/slackapi?utf8=%E2%9C%93&q=&type=&language=python
 
 🤔  Support
 ------------
