@@ -1,3 +1,10 @@
+This repository has been archived
+=================================
+
+Thanks for checking out this Slack Platform code. Occasionally we archive our repos to allow us to focus on the more up to date samples. We're leaving this live as a reference.
+
+To see the latest samples, checkout out this list - https://github.com/slackapi/sample-code-index
+
 .. image:: https://user-images.githubusercontent.com/32463/39790649-1e029fc6-52ec-11e8-8e51-845f1f77dd58.png
 
 
